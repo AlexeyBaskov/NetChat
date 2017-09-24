@@ -20,7 +20,7 @@ public class App extends Application{
 		
 		Parent root = FXMLLoader.load(getClass().getResource(fxml));
 		primaryStage.setTitle("NetChat");
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root, 640, 480));
 		primaryStage.show();
 	}
 }
