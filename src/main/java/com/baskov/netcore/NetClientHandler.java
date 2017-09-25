@@ -18,18 +18,20 @@ public class NetClientHandler implements Runnable {
 	@Override
 	public void run() {
         
-		try (InputStream sin = socket.getInputStream(); 
-			 OutputStream sout = socket.getOutputStream()) {
-		
-			DataInputStream dis = new DataInputStream(sin);
-			DataOutputStream dos = new DataOutputStream(sout);
+		try (DataInputStream dis = new DataInputStream(socket.getInputStream());
+			 DataOutputStream dos = new DataOutputStream(socket.getOutputStream())) {
 			
 			while(true) {
 				
-						
+				if(dis.available() > 0) {
+					
+				}
+				
+				Thread.sleep(10);
+				
 			}
 			
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

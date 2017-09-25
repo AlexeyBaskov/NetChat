@@ -2,32 +2,45 @@ package com.baskov.netcore;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
 
 public class NetServer implements Runnable {
 
-	private ServerSocket server;
+	private int port;
 	
-	public NetServer() {
-		try {
-			server = new ServerSocket();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void start() {
-		
-	}
+	private boolean isRunning;
+	private boolean isAvailable;
 	
-	public void stop() {
-		
+	public NetServer(int port) {
+        this.port = port;
+        isRunning = true;
+        isAvailable = true;
 	}
 	
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		
+        try (ServerSocket server = new ServerSocket(port)) {
+        	
+        	while(isRunning) {
+        		
+        		///--- крутим в холостую
+        		if(!isAvailable) continue;
+        		
+        		///--- слушаем сокет
+        		Socket client = server.accept();
+        		
+        		///--- подключаем клиента
+        	    new Thread(new NetClientHandler(client)).start();
+        	    
+        		Thread.sleep(10);
+        	}
+        	
+        } catch(IOException | InterruptedException e) {
+        	e.printStackTrace();
+        }
+	
 	}
 	
 }
