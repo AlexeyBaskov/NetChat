@@ -3,7 +3,7 @@ package com.baskov.netcore;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-public class NetServer {
+public class NetServer implements Runnable {
 
 	private ServerSocket server;
 	
@@ -14,6 +14,20 @@ public class NetServer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void start() {
+		
+	}
+	
+	public void stop() {
+		
+	}
+	
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

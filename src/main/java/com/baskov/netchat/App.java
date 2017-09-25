@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class App extends Application{
+public class App extends Application {
 	
 	private static final String fxml = "/fxml/main.fxml";
 	
@@ -17,7 +17,6 @@ public class App extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
 		Parent root = FXMLLoader.load(getClass().getResource(fxml));
 		primaryStage.setTitle("NetChat");
 		primaryStage.setScene(new Scene(root, 640, 480));
