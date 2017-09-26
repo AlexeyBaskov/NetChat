@@ -3,7 +3,7 @@ package com.baskov.netcore;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.concurrent.Exchanger;
 
 public class NetServer implements Runnable {
 
@@ -16,6 +16,10 @@ public class NetServer implements Runnable {
         this.port = port;
         isRunning = true;
         isAvailable = true;
+	}
+	
+	public void closeServer() {
+		isRunning = false;
 	}
 	
 	@Override

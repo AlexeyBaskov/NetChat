@@ -3,16 +3,27 @@ package com.baskov.netcore;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class NetClientHandler implements Runnable {
 
-	private final Socket socket; 
+	private final Socket socket;
 	
 	public NetClientHandler(Socket socket) {
 		this.socket = socket;
+	}
+	
+	private void read(DataInputStream dis) throws IOException {
+		
+		if(dis.available() > 0) {
+		    String message = dis.readUTF();
+		    System.out.println(message);
+		}
+		
+	}
+	
+	private void write(DataOutputStream dos) {
+		
 	}
 	
 	@Override
@@ -23,12 +34,9 @@ public class NetClientHandler implements Runnable {
 			
 			while(true) {
 				
-				if(dis.available() > 0) {
-					
-				}
-				
+				this.read(dis);
+				this.write(dos);
 				Thread.sleep(10);
-				
 			}
 			
 		} catch (IOException | InterruptedException e) {
