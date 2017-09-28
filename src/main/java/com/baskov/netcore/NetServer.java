@@ -3,40 +3,74 @@ package com.baskov.netcore;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Exchanger;
+import java.util.LinkedList;
+import java.util.List;
 
 public class NetServer implements Runnable {
 
 	private int port;
 	
-	private boolean isRunning;
-	private boolean isAvailable;
+	private volatile boolean flag_Running;
+	private volatile boolean flag_Available;
+	
+	private ServerSocket server;
+	
+	private List<NetClientHandler> clientList;
 	
 	public NetServer(int port) {
         this.port = port;
-        isRunning = true;
-        isAvailable = true;
+        flag_Running = true;
+        flag_Available = true;
+        
+        clientList = new LinkedList<NetClientHandler>();
 	}
 	
-	public void closeServer() {
-		isRunning = false;
+	/**
+	 * Завершение работы сервера
+	 */
+	public synchronized void close() {
+		
+		flag_Running = false;
+		
+		disconnectAllClients();
+		
+		try {
+			server.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	/**
+	 * Отключает все соединения с клиентами
+	 */
+	private void disconnectAllClients() {
+		for(NetClientHandler client : clientList) {
+			client.disconnecnt();
+		}
 	}
 	
 	@Override
 	public void run() {
 		
-        try (ServerSocket server = new ServerSocket(port)) {
+        try {
         	
-        	while(isRunning) {
+        	server = new ServerSocket(port);
+        	
+        	while(flag_Running) {
         		
         		///--- крутим в холостую
-        		if(!isAvailable) continue;
+        		if(!flag_Available) continue;
         		
         		///--- слушаем сокет
         		Socket client = server.accept();
         		
         		///--- подключаем клиента
-        	    new Thread(new NetClientHandler(client)).start();
+        		NetClientHandler newClient = new NetClientHandler(client, (short)0);
+        	    new Thread(newClient).start();
+        	    clientList.add(newClient);
         	    
         		Thread.sleep(10);
         	}

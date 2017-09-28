@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import com.baskov.packets.AbstractPacket;
+
 public class NetClient implements Runnable {
 
 	private boolean isRunning;
@@ -18,7 +20,11 @@ public class NetClient implements Runnable {
 		this.isRunning = true;
 	}
 
-	public void send(String x) {
+	public synchronized AbstractPacket take() {
+		return null;
+	}
+	
+	public synchronized void send(AbstractPacket p) {
 		
 	}
 	

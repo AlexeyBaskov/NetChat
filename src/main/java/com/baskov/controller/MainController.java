@@ -16,6 +16,8 @@ public class MainController {
 	private NetClient client;
 	private NetServer server;
 	
+	
+	
 	@FXML private Button btnSubmit;
 	@FXML private TextField messageEdit;
 	@FXML private TextArea messageArea;
