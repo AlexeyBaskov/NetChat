@@ -12,36 +12,40 @@ public class NetClientHandler implements Runnable {
 
 	private final short id;
 	private final Socket socket;
-	private volatile boolean isRunning;
+	private volatile boolean flag_Running;
 	
 	public NetClientHandler(Socket socket, short id) {
 		this.socket = socket;
 		this.id = id;
-		this.isRunning = true;
+		this.flag_Running = true;
+		System.out.println("client connected");
 	}
 	
-	private void read(DataInputStream dis) throws IOException {
+	private AbstractPacket read(DataInputStream dis) throws IOException {
 		
 		if(dis.available() > 0) {
 		    short packet_id = dis.readShort();
 		    AbstractPacket packet = PacketManager.getPacket(packet_id);
 		    packet.read(dis);
+		    return packet;
 		}
-		
+		return null;
 	}
 	
 	
 	
-	private void write(DataOutputStream dos) {
-		
+	private synchronized void write(DataOutputStream dos, AbstractPacket packet) throws IOException {
+		dos.writeShort(packet.getId());
+		packet.write(dos);
+		dos.flush();
 	}
 	
 	public synchronized boolean isRunning() {
-		return isRunning;
+		return flag_Running;
 	}
 	
 	public synchronized void disconnecnt() {
-		isRunning = false;
+		flag_Running = false;
 	}
 	
 	@Override
@@ -50,10 +54,15 @@ public class NetClientHandler implements Runnable {
 		try (DataInputStream dis = new DataInputStream(socket.getInputStream());
 			 DataOutputStream dos = new DataOutputStream(socket.getOutputStream())) {
 			
-			while(isRunning) {
+			while(flag_Running) {
 				
-				this.read(dis);
-				this.write(dos);
+				AbstractPacket packet = this.read(dis);
+				
+				if(packet != null) {
+					System.out.println(packet.toString());
+				    this.write(dos, packet);
+				}
+				
 				Thread.sleep(10);
 			}
 			

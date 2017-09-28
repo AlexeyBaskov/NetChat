@@ -13,9 +13,7 @@ public class HelloPacket extends AbstractPacket {
 	private String status;
 	private String date;
 	
-	public HelloPacket() {
-		
-	}
+	public HelloPacket() {}
 	
 	public HelloPacket(String name, String status) {
 		this.name = name;
@@ -33,15 +31,19 @@ public class HelloPacket extends AbstractPacket {
 		name = dis.readUTF();
 		status = dis.readUTF();
 		date = dis.readUTF();
-		
 	}
 
 	@Override
 	public void write(DataOutputStream dos) throws IOException {
 		dos.writeUTF(name);
 		dos.writeUTF(status);
-		dos.writeUTF(date);
-		
+		dos.writeUTF(date);	
 	}
 
+	@Override
+	public String toString() {
+		
+		return name + " " + status + " " + date;
+	}
+	
 }
