@@ -47,7 +47,6 @@ public class NetClient implements Runnable {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		
 	
 	}
 	
@@ -56,11 +55,11 @@ public class NetClient implements Runnable {
 		
 		try (Socket socket = new Socket(this.ip, this.port)) {
 			
+			dis = new DataInputStream(socket.getInputStream());
+			dos = new DataOutputStream(socket.getOutputStream());
+			
 			while(flag_Running) {
 				
-				dis = new DataInputStream(socket.getInputStream());
-				dos = new DataOutputStream(socket.getOutputStream());
-					
 				Thread.sleep(10);
 				
 				if(dis.available() > 0) {

@@ -4,6 +4,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.Property;
+import org.apache.logging.log4j.core.config.builder.api.PropertyComponentBuilder;
+
 import com.baskov.netcore.NetClient;
 import com.baskov.netcore.NetServer;
 import com.baskov.packets.AbstractPacket;
@@ -31,8 +36,11 @@ public class MainController {
 	
 	boolean flag_ServerStart = false;
 	
+    private static final Logger log = LogManager.getLogger(MainController.class);
+	
 	@FXML
 	public void onStartServer() {
+		
 		if(!flag_ServerStart) {
 		    server = new NetServer(8430);
 		    new Thread(server).start();
@@ -47,6 +55,8 @@ public class MainController {
 	}
 	
 	@FXML void onStartClient() {
+		
+		log.info("Client start");
 		
 		client = new NetClient("localhost", 8430);
 		new Thread(client).start();
@@ -68,6 +78,8 @@ public class MainController {
 	
 	@FXML
 	public void onClickSubmit() {
+		
+		log.info("Client send message");
 		
 		String text = messageEdit.getText() + " | " + new Date() + "\n";
 		

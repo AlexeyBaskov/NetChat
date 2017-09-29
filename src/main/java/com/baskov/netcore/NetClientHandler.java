@@ -32,8 +32,6 @@ public class NetClientHandler implements Runnable {
 		return null;
 	}
 	
-	
-	
 	private synchronized void write(DataOutputStream dos, AbstractPacket packet) throws IOException {
 		dos.writeShort(packet.getId());
 		packet.write(dos);
