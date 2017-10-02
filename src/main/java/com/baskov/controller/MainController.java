@@ -6,8 +6,7 @@ import java.util.TimerTask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.Property;
-import org.apache.logging.log4j.core.config.builder.api.PropertyComponentBuilder;
+
 
 import com.baskov.netcore.NetClient;
 import com.baskov.netcore.NetServer;

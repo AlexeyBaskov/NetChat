@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 	
-	private static final String fxml = "/fxml/main.fxml";
+	private static final String fxml_login = "/fxml/login.fxml";
 	
     public static void main(String[] args) {
         launch(args);
@@ -22,12 +22,9 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		
-		
-		Parent root = FXMLLoader.load(getClass().getResource(fxml));
-		primaryStage.setTitle("NetChat");
-		primaryStage.setScene(new Scene(root, 640, 480));
+		Parent root = FXMLLoader.load(getClass().getResource(fxml_login));
+		primaryStage.setTitle("NetChat login");
+		primaryStage.setScene(new Scene(root, 400, 200));
 		primaryStage.show();
 	}
 }

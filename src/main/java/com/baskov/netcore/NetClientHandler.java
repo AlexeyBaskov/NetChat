@@ -46,6 +46,10 @@ public class NetClientHandler implements Runnable {
 		flag_Running = false;
 	}
 	
+	public short getId() {
+		return id;
+	}
+	
 	@Override
 	public void run() {
         

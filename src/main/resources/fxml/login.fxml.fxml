@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="200.0" maxWidth="400.0" minHeight="200.0" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.baskov.controller.LoginController">
+   <children>
+      <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="200.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="clientName" layoutX="223.0" layoutY="26.0" />
+      <Label layoutX="262.0" layoutY="6.0" text="Имя клиента" />
+      <Label layoutX="254.0" layoutY="57.0" text="Адресс сервера" />
+      <Button layoutX="248.0" layoutY="154.0" mnemonicParsing="false" onAction="#onClientStart" text="Запуск клиента" />
+      <Label layoutX="64.0" layoutY="6.0" text="Имя сервера" />
+      <TextField fx:id="serverName" layoutX="26.0" layoutY="26.0" />
+      <TextField fx:id="serverAdress" layoutX="223.0" layoutY="79.0" />
+      <Button layoutX="50.0" layoutY="154.0" mnemonicParsing="false" onAction="#onServerStart" text="Запуск сервера" />
+      <Label layoutX="26.0" layoutY="83.0" text="Порт" />
+      <Label layoutX="223.0" layoutY="122.0" text="Порт" />
+      <TextField fx:id="serverPort" layoutX="66.0" layoutY="79.0" prefHeight="25.0" prefWidth="109.0" />
+      <TextField fx:id="clientPort" layoutX="263.0" layoutY="118.0" prefHeight="25.0" prefWidth="109.0" />
+   </children>
+</AnchorPane>
