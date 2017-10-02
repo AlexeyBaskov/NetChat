@@ -37,8 +37,22 @@ public class MainController {
 	
     private static final Logger log = LogManager.getLogger(MainController.class);
 	
-	@FXML
-	public void onStartServer() {
+    /*
+     * Инициализация сервера
+     */
+    public void initServer(String serverName, String serverPort) {
+    	///--- при старте сервера стартует и локальный клиент
+    	
+    }
+    
+    /*
+     * Инициализация клиента
+     */
+    public void initClient(String clientName, String serverAdress, String clientPort) {
+    	
+    }
+    
+	@FXML public void onStartServer() {
 		
 		if(!flag_ServerStart) {
 		    server = new NetServer(8430);
@@ -53,7 +67,7 @@ public class MainController {
 		flag_ServerStart = !flag_ServerStart;
 	}
 	
-	@FXML void onStartClient() {
+	@FXML public void onStartClient() {
 		
 		log.info("Client start");
 		

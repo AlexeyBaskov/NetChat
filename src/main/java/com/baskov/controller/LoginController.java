@@ -28,7 +28,7 @@ public class LoginController {
 	
 	public void initialize() throws IOException {
 	    
-		log.info("Инициализация контроллера");
+		log.info("Инициализация контроллера основной формы");
 	    
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml_main));
 	    
@@ -42,20 +42,24 @@ public class LoginController {
 	}
 	
 	private void createMainServer(String serverName, String serverPort) {
-		
+		mainController.initServer(serverName, serverPort);
+		mainStage.show();
 	}
 	
 	private void createMainClient(String clientName, String serverAdress, String clientPort) {
-		
+		mainController.initClient(clientName, serverAdress, clientPort);
+		mainStage.show();
 	}
 	
 	@FXML public void onServerStart() {
+		log.info("Запуск сервера");
 		String server_name = serverName.getText();
 		String server_port = serverPort.getText();
 		createMainServer(server_name, server_port);
 	}
 	
 	@FXML public void onClientStart() {
+		log.info("Запуск клиента");
 		String client_name = clientName.getText();
 		String client_port = clientPort.getText();
 		String server_adress = serverAdress.getText();
