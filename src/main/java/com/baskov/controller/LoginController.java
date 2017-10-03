@@ -38,7 +38,7 @@ public class LoginController {
 	    mainStage = new Stage();
 	    mainStage.setTitle("NetChat");
 	    mainStage.setScene(new Scene(root));
-	    
+	    mainController.initialize(mainStage);
 	}
 	
 	private void createMainServer(String serverName, String serverPort) {

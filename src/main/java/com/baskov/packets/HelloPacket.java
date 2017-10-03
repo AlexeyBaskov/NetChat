@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class HelloPacket extends AbstractPacket {
 
-	private final int id = 1;
+	private final short id = 1;
 	
 	private String name;
 	private String status;
@@ -22,7 +22,7 @@ public class HelloPacket extends AbstractPacket {
 	}
 	
 	@Override
-	public int getId() {
+	public short getId() {
 		return id;
 	}
 

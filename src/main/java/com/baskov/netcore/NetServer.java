@@ -25,6 +25,10 @@ public class NetServer implements Runnable {
         clientList = new LinkedList<NetClientHandler>();
 	}
 	
+	public void sendAllclients() {
+		
+	}
+	
 	/**
 	 * Завершение работы сервера
 	 */

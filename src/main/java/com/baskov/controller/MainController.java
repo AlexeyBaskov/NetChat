@@ -18,9 +18,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class MainController {
 
+	private Stage this_stage;
 	private NetClient client;
 	private NetServer server;
 	
@@ -28,51 +30,64 @@ public class MainController {
 	@FXML private TextField messageEdit;
 	@FXML private TextArea messageArea;
 	
-	///--- тестовые поля
-	@FXML private Button startServer;
-	@FXML private Button startClient;
-	@FXML private Label labelStatus;
-	
 	boolean flag_ServerStart = false;
 	
     private static final Logger log = LogManager.getLogger(MainController.class);
 	
     /*
+	 * Инициализация контроллера
+	 */
+	public void initialize(Stage stage) {	
+		this.this_stage = stage;
+		flag_ServerStart = false;
+	}
+    
+    /*
      * Инициализация сервера
      */
     public void initServer(String serverName, String serverPort) {
     	///--- при старте сервера стартует и локальный клиент
+    	int port = 0;
     	
+    	try {
+    	    port = Integer.parseInt(serverPort);
+    	} catch(NumberFormatException e) {
+    		log.error("Некорректный параметр: ", serverPort);
+    		e.printStackTrace();
+    		this_stage.close();
+    		return;
+    	}
+    	server = new NetServer(port);
+    	new Thread(server).start();
+    	
+    	client = new NetClient("localhost", port);
+    	new Thread(client);
+    	
+    	startClientTimer();
     }
     
     /*
      * Инициализация клиента
      */
     public void initClient(String clientName, String serverAdress, String clientPort) {
+    	server = null;
+    	try {
+    	    client = new NetClient(serverAdress, Integer.parseInt(clientPort));
+    	} catch (NumberFormatException e) {
+    		log.error("Некорректный параметр: ", clientPort);
+    		e.printStackTrace();
+    		this_stage.close();
+    		return;
+    	}
+    	
+    	new Thread(client).start();
+    	
+    	startClientTimer();
     	
     }
-    
-	@FXML public void onStartServer() {
-		
-		if(!flag_ServerStart) {
-		    server = new NetServer(8430);
-		    new Thread(server).start();
-		    startServer.setText("Server run");
-		    
-		} else {
-			server.close();
-			startServer.setText("Server");
-		}
-		
-		flag_ServerStart = !flag_ServerStart;
-	}
 	
-	@FXML public void onStartClient() {
+	private void startClientTimer() {
 		
-		log.info("Client start");
-		
-		client = new NetClient("localhost", 8430);
-		new Thread(client).start();
 	    Timer timer = new Timer();
 	    TimerTask task = new TimerTask() {
 			
@@ -89,8 +104,7 @@ public class MainController {
 		
 	}
 	
-	@FXML
-	public void onClickSubmit() {
+	@FXML public void onClickSubmit() {
 		
 		log.info("Client send message");
 		
@@ -104,12 +118,6 @@ public class MainController {
 		
 		client.send(packet);
 		
-	}
-	
-	public void initialize() {	
-		
-		///--- создаем клиент TODO: передача параметров клиенту
-
 	}
 	
 }

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public abstract class AbstractPacket {
 
-	public abstract int getId();
+	public abstract short getId();
 	
 	public abstract void read(DataInputStream dis) throws IOException;
 	

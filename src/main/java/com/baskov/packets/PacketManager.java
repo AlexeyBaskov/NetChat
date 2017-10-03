@@ -9,6 +9,7 @@ public class PacketManager {
 	
 	static {
 		packets.put((short)1, HelloPacket.class);
+		packets.put((short)2, MessagePacket.class);
 	}
 	
 	public static AbstractPacket getPacket(short id) {
